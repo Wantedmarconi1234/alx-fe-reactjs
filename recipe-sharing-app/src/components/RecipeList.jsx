@@ -1,4 +1,4 @@
- // RecipeList component
+ // RecipeList components
  import { useRecipeStore } from '../recipeStore';
 
  export const RecipeList = () => {
