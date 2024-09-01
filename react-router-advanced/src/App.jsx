@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Profile from './components/Profile';
-import BlogPost from './components/BlogPost.jsx';
+import BlogPost from './components/BlogPost';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -15,6 +15,7 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/login">Login</Link>
+        <Link to="/blog/1">Sample Blog Post</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -27,7 +28,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/blog/:postId" element={<BlogPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
     </Router>
   );
