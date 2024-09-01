@@ -1,8 +1,13 @@
 // src/components/Login.jsx
-const Login = ({ setIsAuthenticated }) => {
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     // Simulate authentication process
-    setIsAuthenticated(true);
+    localStorage.setItem('user', 'authenticated');
+    navigate('/profile'); // Redirect to profile after login
   };
 
   return (
