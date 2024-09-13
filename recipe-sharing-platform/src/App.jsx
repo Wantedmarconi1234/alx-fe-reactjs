@@ -1,11 +1,12 @@
-import Trail from "./components/Trail"
+import HomePage from "./components/HomePage "
+
 
 
 function App() {
  
   return (
     <div>
-      <Trail />
+      <HomePage />
     </div>
   )
 }
