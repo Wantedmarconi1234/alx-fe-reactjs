@@ -1,56 +1,85 @@
 // src/components/Search.jsx
 import { useState } from 'react';
-import { fetchUserData } from '../services/githubService'; // Import API service
+import { fetchAdvancedUserData } from '../services/githubService';
 
 const Search = () => {
-  const [username, setUsername] = useState(''); // Input username state
-  const [userData, setUserData] = useState(null); // Fetched user data state
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [username, setUsername] = useState('');
+  const [location, setLocation] = useState('');
+  const [minRepoCount, setMinRepoCount] = useState('');
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Handle search submission
   const handleSearch = async (e) => {
-    e.preventDefault(); // Prevent page reload
-    setLoading(true); // Start loading
-    setError(null); // Clear previous errors
-    setUserData(null); // Clear previous data
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setUserData(null);
 
     try {
-      const data = await fetchUserData(username); // Fetch user data
-      setUserData(data); // Store user data in state
+      const data = await fetchAdvancedUserData({ username, location, minRepoCount });
+      setUserData(data);
     } catch (err) {
-      setError("Looks like we cant find the user"); // Set error if API call fails
+      setError('Looks like we can’t find any users');
     } finally {
-      setLoading(false); // Stop loading when API call finishes
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className="max-w-xl mx-auto p-5">
+      <form onSubmit={handleSearch} className="space-y-4">
         <input
           type="text"
-          placeholder="Enter GitHub username"
+          className="border rounded w-full p-2"
+          placeholder="GitHub Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)} // Capture input value
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <input
+          type="text"
+          className="border rounded w-full p-2"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <input
+          type="number"
+          className="border rounded w-full p-2"
+          placeholder="Minimum Repositories"
+          value={minRepoCount}
+          onChange={(e) => setMinRepoCount(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-700"
+        >
+          Search
+        </button>
       </form>
 
-      {/* Conditional rendering based on loading, error, and userData */}
-      {loading && <p>Loading...</p>} {/* Loading message */}
-      {error && <p>{error}</p>} {/* Error message */}
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      {userData && (<div className="mt-4">
+      {userData.items.map((user) => (
+      <div key={user.id} className="p-4 border rounded mb-2">
+        <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full" />
+        <h2 className="text-xl font-bold">{user.login}</h2>
+        <p>Location: {user.location || 'N/A'}</p>
+        <p>Repositories: {user.public_repos}</p>
+        <a
+          href={user.html_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500"
+        >
+          View Profile
+        </a>
+      </div>
+    ))}
+  </div>
+)}
 
-      {userData && (
-        <div>
-          {/* Display user's avatar, login, and profile link */}
-          <img src={userData.avatar_url} alt={userData.login} width="100" />
-          <h2>{userData.name || userData.login}</h2>
-          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
-            View GitHub Profile
-          </a>
-        </div>
-      )}
     </div>
   );
 };

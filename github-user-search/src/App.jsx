@@ -1,7 +1,7 @@
 // src/App.jsx
 import  { useState } from 'react';
 import Search from './components/Search';
-import { fetchUserData } from './services/githubService';
+import { fetchAdvancedUserData } from './services/githubService';
 
 const App = () => {
   const [userData, setUserData] = useState(null); // State to hold user data
@@ -14,7 +14,7 @@ const App = () => {
     setUserData(null); // Clear previous user data
 
     try {
-      const data = await fetchUserData(username); // Fetch user data
+      const data = await fetchAdvancedUserData(username); // Fetch user data
       setUserData(data); // Set the user data
     } catch (err) {
       setError('Looks like we can’t find the user'); // Handle error
