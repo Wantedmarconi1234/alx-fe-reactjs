@@ -1,6 +1,6 @@
 // src/App.jsx
 import  { useState } from 'react';
-import SearchBar from './components/SearchBar';
+import Search from './components/Search';
 import { fetchUserData } from './services/githubService';
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
       </header>
       <main>
         {/* Pass the handleSearch function to the SearchBar component */}
-        <SearchBar onSearch={handleSearch} />
+        <Search onSearch={handleSearch} />
 
         {/* Conditional rendering for loading state */}
         {loading && <p>Loading...</p>}
