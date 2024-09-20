@@ -1,4 +1,4 @@
-
+import SearchBar from './components/SearchBar'; // Importing the SearchBar component
 
 const App = () => {
   return (
@@ -7,7 +7,8 @@ const App = () => {
         <h1>GitHub User Search Application</h1>
       </header>
       <main>
-        {/* Components will be added here later */}
+        {/* Integrating the SearchBar component */}
+        <SearchBar />
         <p>Welcome to the GitHub User Search Application!</p>
       </main>
     </div>
