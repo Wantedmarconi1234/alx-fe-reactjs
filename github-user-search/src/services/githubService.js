@@ -8,14 +8,14 @@ const GITHUB_API_URL = 'https://api.github.com/search/users'; // Correct API URL
  * @param {Object} searchParams - Object containing search criteria (username, location, minRepoCount).
  * @returns {Promise<Object>} - A promise resolving to the GitHub search result.
  */
-export const fetchAdvancedUserData = async ({ username, location, minRepoCount }) => {
+export const fetchAdvancedUserData = async ({ username, location, minRepos }) => {
   // Initialize the query string
   let query = '';
 
   // Append search parameters to the query string
   if (username) query += `${username} in:login`;           // Search by username
   if (location) query += ` location:${location}`;          // Filter by location
-  if (minRepoCount) query += ` repos:>${minRepoCount}`;    // Filter by minimum repository count
+  if (minRepos) query += ` repos:>${minRepos}`;    // Filter by minimum repository count
 
   try {
     // Make the API request to the GitHub Search API
