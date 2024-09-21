@@ -1,7 +1,8 @@
 // src/services/githubService.js
 import axios from 'axios';
 
-const GITHUB_API_URL = 'https://api.github.com/search/usersusers?q'; // Correct API URL
+const GITHUB_API_URL = "https://api.github.com/search/users?q"; // Correct API URL
+
 
 /**
  * Fetch user data from GitHub based on advanced search criteria.
